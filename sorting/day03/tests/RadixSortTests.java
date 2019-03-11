@@ -42,7 +42,10 @@ public class RadixSortTests {
         }
     }
 
-   
+    @Test
+   public void testNthDigit(){
+        System.out.println(RadixSort.getNthDigit(7, 2, 10));
+   }
 
     private static int[] generateRandomArrayOfSize(int n, int min, int max) {
         int[] random = new int[n];

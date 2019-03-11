@@ -94,6 +94,7 @@ public class MyHashMapTest {
         assertEquals(10004, map.size());
         for (int i = 0; i < 6000; i++)
             map.remove(Integer.toString(i));
+
         assertEquals(8192, temp.buckets.length);
         for (int i = 6000; i < 9960; i++)
             map.remove(Integer.toString(i));

@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Problems {
 
@@ -42,7 +39,50 @@ public class Problems {
      */
     public static double[] runningMedian(int[] inputStream) {
         double[] runningMedian = new double[inputStream.length];
-        // TODO
+
+        // Establish the numbers on the left side of the median
+        PriorityQueue<Integer> top_cut = minPQ();
+
+        // Establish the numbers on the right side of the median
+        PriorityQueue<Integer> bottom_cut = maxPQ();
+
+
+
+        double last_median = -99999;
+
+        // Iterate through the input stream
+        for(int i = 0; i< inputStream.length; i++){
+            int current_val = inputStream[i];
+
+            // Check if we need to add our value to the top stack
+            if(current_val>last_median){
+                // Check if we need to readjust the arrays
+                if( top_cut.size() > bottom_cut.size()){
+                    bottom_cut.offer(top_cut.peek());
+                    top_cut.poll();
+                }
+                top_cut.add(inputStream[i]);
+            }
+
+            // Also check if we need to add our value to the bottom stack
+            if(current_val<=last_median){
+                if( top_cut.size() < bottom_cut.size()){
+                    top_cut.offer(bottom_cut.peek());
+                    bottom_cut.poll();
+                }
+                bottom_cut.add(inputStream[i]);
+            }
+
+
+            runningMedian[i] =
+                    top_cut.size() == bottom_cut.size() ? (top_cut.peek() + bottom_cut.peek())/2.0
+                                    : (top_cut.size() > bottom_cut.size() ? top_cut.peek() : bottom_cut.peek());
+            last_median = runningMedian[i];
+            System.out.println(last_median);
+
+
+        }
+
         return runningMedian;
     }
 

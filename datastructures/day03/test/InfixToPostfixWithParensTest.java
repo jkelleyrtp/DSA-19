@@ -37,4 +37,9 @@ public class InfixToPostfixWithParensTest {
     public void infixToPostfixCaseSix() {
         assertEquals("1 6 2 4 + * * 3 +", Problems.infixToPostfix("( ( 1 * ( 6 * ( 2 + 4 ) ) ) + 3 )"));
     }
+
+    @Test
+    public void infixToPostfixCaseSeven() {
+        assertEquals("1 2 3 4 5 + + + +", Problems.infixToPostfix("( 1 + ( 2 + ( 3 + ( 4 + 5 ) ) ) )"));
+    }
 }

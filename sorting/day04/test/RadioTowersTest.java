@@ -186,8 +186,8 @@ public class RadioTowersTest {
     public void towersSeven() {
         // first two towers violate the conditions. No others do
         List<RadioTowers.Tower> towers = Arrays.asList(
-                new RadioTowers.Tower(4.6, 3.3),
-                new RadioTowers.Tower(4.8, 4.0),
+                new RadioTowers.Tower(-4.6, 3.3),
+                new RadioTowers.Tower(-4.8, 4.0),
                 new RadioTowers.Tower(3.2, 5.0),
                 new RadioTowers.Tower(0.5, 4.1),
                 new RadioTowers.Tower(-0.7, -3.7),
