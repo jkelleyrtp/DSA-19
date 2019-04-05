@@ -1,5 +1,6 @@
 package range_finding;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -70,19 +71,69 @@ public class AVLRangeTree extends BinarySearchTree<Integer> {
         return x;
     }
 
+
+
     // Return all keys that are between [lo, hi] (inclusive).
-    // TODO: runtime = O(?)
+    // TODO: runtime = O(logn + k)
     public List<Integer> rangeIndex(int lo, int hi) {
-        // TODO
+
         List<Integer> l = new LinkedList<>();
+        System.out.println(l.toString());
+        inOrderHiLo(root, l, lo, hi);
+        System.out.println(l);
         return l;
     }
 
-    // return the number of keys between [lo, hi], inclusive
-    // TODO: runtime = O(?)
+
+
+    void inOrderHiLo(RangeNode<Integer> node, List<Integer> list,  int low, int high)
+    {
+        // Base Case
+        if(node == null)
+            return;
+
+        if(node.key >= low && node.key <= high) {
+            // In-Order traversal if within range.
+            inOrderHiLo(node.leftChild, list, low, high);
+            list.add(node.key);
+            inOrderHiLo(node.rightChild, list, low, high);
+
+        } else if(node.key < low) {
+            // Check right child if not within range
+            inOrderHiLo(node.rightChild, list, low, high);
+
+            // Else check left child if not within range
+        }else {
+            inOrderHiLo(node.leftChild, list, low, high);
+        }
+    }
+
+    int countHiLo(RangeNode<Integer> node,  int low, int high)
+    {
+        // Base Case
+        if(node == null)
+            return 0;
+
+        if(node.key >= low && node.key <= high) {
+            // In-Order traversal if within range.
+            return 1 + countHiLo(node.leftChild, low, high) + countHiLo(node.rightChild, low, high);
+
+        } else if(node.key < low) {
+            // Check right child if not within range
+            return countHiLo(node.rightChild, low, high);
+
+            // Else check left child if not within range
+        }else {
+            return countHiLo(node.leftChild, low, high);
+        }
+    }
+
+
+    // return the number of keys between [lo, hi], inclusive,
+    // TODO: runtime = O(logn)
     public int rangeCount(int lo, int hi) {
-        // TODO
-        return 0;
+        //return rangeIndex(lo, hi).size();
+        return countHiLo(root,lo, hi);
     }
 
     /**

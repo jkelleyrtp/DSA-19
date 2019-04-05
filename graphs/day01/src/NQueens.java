@@ -51,8 +51,47 @@ public class NQueens {
 
     public static List<char[][]> nQueensSolutions(int n) {
         // TODO
+        // Remaining rows, remaining columns, check each diagonal when placing a new one.
+        // Iterate through all all positions on the chess board where we
+
+        char[][] board = new char[n][n];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                board[i][j] = '.';
+            }
+        }
         List<char[][]> answers = new ArrayList<>();
+        solve(answers, board, new boolean[n], 0);
+
         return answers;
     }
+
+    private static void solve(List<char[][]> answers, char[][] board, boolean[] usedColumns, int rowNumber) {
+        // If we've solved the board
+        if (rowNumber == board.length) {
+            answers.add(copyOf(board));
+            return;
+        }
+
+
+        char[] row = board[rowNumber];
+
+        // Iterate through each column and through each row
+        for (int i = 0; i < row.length; i++) {
+            if (!usedColumns[i] && !checkDiagonal(board, rowNumber, i)) {
+
+                usedColumns[i] = true;
+                board[rowNumber][i] = 'Q';
+
+                //Recursively iterate to the next row
+                solve(answers, board, usedColumns, rowNumber + 1);
+
+                usedColumns[i] = false;
+                board[rowNumber][i] = '.';
+            }
+        }
+    }
+
+
 
 }

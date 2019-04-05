@@ -46,7 +46,10 @@ public class NQueensTest {
 
     @Test
     public void testCheckDiagonal() {
-        char[][] board = {{'Q', '.', '.', '.'}, {'.', '.', 'Q', '.'}, {'.', '.', '.', 'Q'}, {'.', 'Q', '.', '.'}};
+        char[][] board = {  {'Q', '.', '.', '.'},
+                            {'.', '.', 'Q', '.'},
+                            {'.', '.', '.', 'Q'},
+                            {'.', 'Q', '.', '.'}};
         assertTrue(NQueens.checkDiagonal(board, 2, 3));
     }
 
